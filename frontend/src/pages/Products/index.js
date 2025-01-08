@@ -151,6 +151,19 @@ const Products = () => {
     }
   };
 
+  const calculateItemTotal = (price, quantity) => {
+    return (parseFloat(price) * parseInt(quantity)).toFixed(2);
+  };
+
+  // Add this function to calculate grand total
+  const calculateGrandTotal = () => {
+    return products
+      .reduce((total, product) => {
+        return total + parseFloat(product.price) * parseInt(product.quantity);
+      }, 0)
+      .toFixed(2);
+  };
+
   const validateForm = () => {
     return formData.name && formData.price && formData.quantity;
   };
@@ -182,6 +195,7 @@ const Products = () => {
                 <TableCell>Name</TableCell>
                 <TableCell>Price</TableCell>
                 <TableCell>Quantity</TableCell>
+                <TableCell>Total Price</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
@@ -246,7 +260,7 @@ const Products = () => {
                           "&:hover": { color: "primary.main" },
                         }}
                       >
-                        ${Number(product.price).toFixed(2)}
+                        ₹{Number(product.price).toFixed(2)}
                       </Typography>
                     )}
                   </TableCell>
@@ -323,6 +337,16 @@ const Products = () => {
                     </Box>
                   </TableCell>
                   <TableCell>
+                    <Typography
+                      sx={{
+                        fontWeight: 500,
+                        color: "primary.main",
+                      }}
+                    >
+                      ₹{calculateItemTotal(product.price, product.quantity)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
                     <Chip
                       label={product.quantity > 0 ? "In Stock" : "Out of Stock"}
                       color={product.quantity > 0 ? "success" : "error"}
@@ -345,6 +369,24 @@ const Products = () => {
                   </TableCell>
                 </TableRow>
               ))}
+
+              <TableRow
+                sx={{
+                  "& td": {
+                    borderBottom: "none",
+                    backgroundColor: "primary.light",
+                    color: "white",
+                    fontWeight: "bold",
+                  },
+                }}
+              >
+                <TableCell colSpan={3} align="right">
+                  Grand Total:
+                </TableCell>
+                <TableCell>₹{calculateGrandTotal()}</TableCell>
+                <TableCell colSpan={2} />{" "}
+                {/* Empty cells for status and actions */}
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
