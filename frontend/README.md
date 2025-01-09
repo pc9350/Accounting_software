@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# Accounting & Inventory Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern web application for managing product inventory and tracking financial data. Built with React, Node.js, Express, and PostgreSQL.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Product Management
+- ✨ Add, edit, and delete products
+- 🔄 Real-time quantity adjustments
+- ✏️ Inline editing for quick updates
+- 📊 Stock status tracking
+- 💰 Total price calculations
 
-### `npm start`
+### User Interface
+- 🎨 Clean, modern design
+- 📱 Responsive layout
+- 🎯 Intuitive navigation
+- ⚡ Real-time feedback
+- 🎭 Material-UI components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- React.js
+- Material-UI (MUI)
+- Axios
+- React Router
 
-### `npm test`
+### Backend
+- Node.js
+- Express.js
+- PostgreSQL
+- RESTful API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
+- Node.js (v14 or higher)
+- PostgreSQL
+- npm or yarn
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/pc9350/Accounting_software.git
+   cd accounting-app
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Set up the backend**
+   ```bash
+   cd backend
+   npm install
 
-### `npm run eject`
+   # Create .env file with your database credentials
+   cp .env.example .env
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   Update `.env` with your PostgreSQL credentials:
+   ```env
+   PORT=3001
+   DB_USER=postgres
+   DB_HOST=localhost
+   DB_NAME=accounting_db
+   DB_PASSWORD=your_password
+   DB_PORT=5432
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Set up the frontend**
+   ```bash
+   cd ../frontend
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Start the development servers**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   Backend:
+   ```bash
+   cd backend
+   npm run dev
+   ```
 
-## Learn More
+   Frontend:
+   ```bash
+   cd frontend
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   The application will be available at `http://localhost:3000`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API Endpoints
 
-### Code Splitting
+### Products
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | `/api/products` | Get all products |
+| POST   | `/api/products` | Create a new product |
+| PUT    | `/api/products/:id` | Update a product |
+| DELETE | `/api/products/:id` | Delete a product |
 
-### Analyzing the Bundle Size
+## Database Schema
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Products Table
 
-### Making a Progressive Web App
+```sql
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Table Columns
 
-### Advanced Configuration
+| Column | Type | Description |
+|--------|------|-------------|
+| id | SERIAL | Primary key, auto-incrementing |
+| name | VARCHAR(255) | Product name, cannot be null |
+| price | DECIMAL(10,2) | Product price with 2 decimal places |
+| quantity | INTEGER | Current stock quantity |
+| created_at | TIMESTAMP | Record creation time, defaults to current time |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+### Backend
+- Deploy to Render or Heroku
+- Set up environment variables
+- Configure PostgreSQL database
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Frontend
+- Deploy to Vercel or Netlify
+- Configure build settings
+- Set up environment variables
 
-### `npm run build` fails to minify
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Your Name - [Pranav Chhabra](mailto:chhabrapranav2001@gmail.com)
+
+Project Link: [https://github.com/your-username/accounting-app](https://github.com/pc9350/Accounting_software.git)
+
+---
