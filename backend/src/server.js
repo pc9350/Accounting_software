@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 // Configure CORS for production
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? 'your_frontend_url'  // Replace with your Vercel frontend URL
+    ? 'https://accounting-software-mauve.vercel.app/'  // Replace with your Vercel frontend URL
     : 'http://localhost:3000',
   optionsSuccessStatus: 200
 };
