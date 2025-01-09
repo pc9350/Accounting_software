@@ -30,6 +30,7 @@ import {
   RemoveCircleOutline as MinusIcon,
 } from "@mui/icons-material";
 import axios from "axios";
+import API_URL from "../../config/api";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -50,12 +51,21 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3001/api/products");
+  //       setProducts(response.data);
+  //     } catch (error) {
+  //       showSnackbar("Error fetching products", "error");
+  //     }
+  //   };
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/products");
-      setProducts(response.data);
+      const response = await axios.get(`${API_URL}/api/products`);
+      return response.data;
     } catch (error) {
-      showSnackbar("Error fetching products", "error");
+      console.error("Error fetching products:", error);
+      throw error;
     }
   };
 
@@ -80,18 +90,41 @@ const Products = () => {
     setSnackbar({ open: true, message, severity });
   };
 
+  //   const handleSubmit = async () => {
+  //     try {
+  //       if (selectedProduct) {
+  //         // Update existing product
+  //         await axios.put(
+  //           `http://localhost:3001/api/products/${selectedProduct.id}`,
+  //           formData
+  //         );
+  //         showSnackbar("Product updated successfully");
+  //       } else {
+  //         // Create new product
+  //         await axios.post("http://localhost:3001/api/products", formData);
+  //         showSnackbar("Product added successfully");
+  //       }
+  //       handleCloseDialog();
+  //       fetchProducts();
+  //     } catch (error) {
+  //       showSnackbar(
+  //         error.response?.data?.error || "Error saving product",
+  //         "error"
+  //       );
+  //     }
+  //   };
   const handleSubmit = async () => {
     try {
       if (selectedProduct) {
         // Update existing product
         await axios.put(
-          `http://localhost:3001/api/products/${selectedProduct.id}`,
+          `${API_URL}/api/products/${selectedProduct.id}`,
           formData
         );
         showSnackbar("Product updated successfully");
       } else {
         // Create new product
-        await axios.post("http://localhost:3001/api/products", formData);
+        await axios.post(`${API_URL}/api/products`, formData);
         showSnackbar("Product added successfully");
       }
       handleCloseDialog();
@@ -104,10 +137,21 @@ const Products = () => {
     }
   };
 
+  //   const handleDelete = async (id) => {
+  //     if (window.confirm("Are you sure you want to delete this product?")) {
+  //       try {
+  //         await axios.delete(`http://localhost:3001/api/products/${id}`);
+  //         showSnackbar("Product deleted successfully");
+  //         fetchProducts();
+  //       } catch (error) {
+  //         showSnackbar("Error deleting product", "error");
+  //       }
+  //     }
+  //   };
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:3001/api/products/${id}`);
+        await axios.delete(`${API_URL}/api/products/${id}`);
         showSnackbar("Product deleted successfully");
         fetchProducts();
       } catch (error) {
@@ -116,10 +160,26 @@ const Products = () => {
     }
   };
 
+  //   const handleQuantityChange = async (product, change) => {
+  //     const newQuantity = Math.max(0, parseInt(product.quantity) + change);
+  //     try {
+  //       await axios.put(`http://localhost:3001/api/products/${product.id}`, {
+  //         ...product,
+  //         quantity: newQuantity,
+  //       });
+  //       showSnackbar(
+  //         `Quantity ${change > 0 ? "increased" : "decreased"} successfully`
+  //       );
+  //       fetchProducts();
+  //     } catch (error) {
+  //       showSnackbar("Error updating quantity", "error");
+  //     }
+  //   };
+
   const handleQuantityChange = async (product, change) => {
     const newQuantity = Math.max(0, parseInt(product.quantity) + change);
     try {
-      await axios.put(`http://localhost:3001/api/products/${product.id}`, {
+      await axios.put(`${API_URL}/api/products/${product.id}`, {
         ...product,
         quantity: newQuantity,
       });
@@ -137,9 +197,22 @@ const Products = () => {
     field: null,
   });
 
+  //   const handleInlineEdit = async (product, field, value) => {
+  //     try {
+  //       await axios.put(`http://localhost:3001/api/products/${product.id}`, {
+  //         ...product,
+  //         [field]: value,
+  //       });
+  //       setEditingCell({ id: null, field: null });
+  //       showSnackbar("Updated successfully");
+  //       fetchProducts();
+  //     } catch (error) {
+  //       showSnackbar("Error updating product", "error");
+  //     }
+  //   };
   const handleInlineEdit = async (product, field, value) => {
     try {
-      await axios.put(`http://localhost:3001/api/products/${product.id}`, {
+      await axios.put(`${API_URL}/api/products/${product.id}`, {
         ...product,
         [field]: value,
       });
