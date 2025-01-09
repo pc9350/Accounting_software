@@ -61,13 +61,19 @@ const Products = () => {
   //   };
   const fetchProducts = async () => {
     try {
+      console.log("Fetching products..."); // Debug log
       const response = await axios.get(`${API_URL}/api/products`);
-      return response.data;
+      console.log("Products fetched:", response.data); // Debug log
+      setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
-      throw error;
+      showSnackbar("Error fetching products", "error");
     }
   };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const handleOpenDialog = (product = null) => {
     if (product) {
@@ -128,8 +134,16 @@ const Products = () => {
         showSnackbar("Product added successfully");
       }
       handleCloseDialog();
-      fetchProducts();
+      // Explicitly fetch products after adding/updating
+      await fetchProducts(); // Make sure to await this
+      // Reset form data
+      setFormData({
+        name: "",
+        price: "",
+        quantity: "",
+      });
     } catch (error) {
+      console.error("Error saving product:", error);
       showSnackbar(
         error.response?.data?.error || "Error saving product",
         "error"
