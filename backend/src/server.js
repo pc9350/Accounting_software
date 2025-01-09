@@ -6,7 +6,16 @@ const pool = require('./config/db');
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
+
+// Configure CORS for production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production'
+    ? 'your_frontend_url'  // Replace with your Vercel frontend URL
+    : 'http://localhost:3000',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // // Add this test route to check database connection
@@ -26,6 +35,15 @@ app.use(express.json());
 //   }
 // });
 
+// Health check route
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok',
+    environment: process.env.NODE_ENV,
+    timestamp: new Date()
+  });
+});
+
 // Routes
 app.use('/api/products', productsRouter);
 
@@ -35,4 +53,5 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  console.log('Environment:', process.env.NODE_ENV || 'development');
 });
