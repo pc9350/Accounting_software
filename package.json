@@ -1,0 +1,13 @@
+{
+    "name": "accounting-software",
+    "version": "1.0.0",
+    "description": "Accounting and Inventory Management System",
+    "main": "backend/src/server.js",
+    "scripts": {
+      "start": "cd backend && npm install && npm start",
+      "build": "cd backend && npm install"
+    },
+    "engines": {
+      "node": ">=14.0.0"
+    }
+  }
